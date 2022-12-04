@@ -21,6 +21,10 @@ import axios from "axios";
 import { authHeader } from "@/service/base.service";
 import { notify } from "@kyvg/vue3-notification";
 import { BASE_API_URL } from "@/common/constants";
+import { useMainStore } from "@/stores/main";
+
+const mainStore = useMainStore();
+const isGV = mainStore.role == "TEACHER";
 
 const selectOptions = [
   "ENGLISH",
@@ -78,6 +82,7 @@ const submit = async () => {
         color="info"
         label="Create Course"
         @click="visibleCourseCreate = !visibleCourseCreate"
+        v-if="isGV"
       />
       <CardBox form @submit="submit" v-if="visibleCourseCreate" class="mb-3">
         <div class="grid grid-cols-2 gap-6 my-4">
@@ -110,7 +115,7 @@ const submit = async () => {
           </BaseButtons>
         </template>
       </CardBox>
-      <CardBox class="mb-6" has-table>
+      <CardBox title="Courses" class="m-3" has-table>
         <Suspense> <TableCoures checkable /> </Suspense>
       </CardBox>
     </SectionMain>

@@ -32,6 +32,8 @@ const courseBuyInfo = reactive({
 
 const mainStore = useMainStore();
 
+const isGV = mainStore.role == "TEACHER";
+
 const items = computed(() => courses);
 
 const isModalActive = ref(false);
@@ -236,6 +238,7 @@ const deleteCourse = () => {
               @click="watchCourse(client.description)"
             />
             <BaseButton
+              v-if="isGV"
               color="danger"
               :icon="mdiTrashCan"
               small
