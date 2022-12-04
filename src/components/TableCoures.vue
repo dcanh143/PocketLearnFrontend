@@ -12,6 +12,7 @@ import courseService from "@/service/course.service";
 import axios from "axios";
 import { BASE_API_URL } from "@/common/constants";
 import { authHeader } from "@/service/base.service";
+import { notify } from "@kyvg/vue3-notification";
 
 defineProps({
   checkable: Boolean,
@@ -93,6 +94,13 @@ const watchCourse = (text) => {
   isModalActive.value = true;
 };
 
+const deleteCourseModal = (id, name) => {
+  courseBuyInfo.id = id;
+  courseBuyInfo.value = name;
+
+  isModalDangerActive.value = true;
+};
+
 const isModalBuyActive = ref(false);
 
 const buyCourse = (name, id, price) => {
@@ -113,7 +121,40 @@ const submit = async () => {
       price: courseBuyInfo.price,
     },
     headers: authHeader(),
-  });
+  })
+    .then((res) => {
+      notify({
+        type: "success",
+        title: "Thành công",
+        text: "Thêm khóa học thành công",
+      });
+    })
+    .catch((err) => {
+      notify({
+        type: "error",
+        title: "Lỗi",
+        text: "Thêm khóa học thất bại",
+      });
+    });
+};
+
+const deleteCourse = () => {
+  const data = courseService
+    .deleteCourse(courseBuyInfo.id)
+    .then((res) => {
+      notify({
+        type: "success",
+        title: "Thành công",
+        text: "Xóa khóa học thành công",
+      });
+    })
+    .catch((err) => {
+      notify({
+        type: "error",
+        title: "Lỗi",
+        text: "Xóa khóa học thất bại",
+      });
+    });
 };
 </script>
 
@@ -127,9 +168,9 @@ const submit = async () => {
     title="Please confirm"
     button="danger"
     has-cancel
+    @confirm="deleteCourse"
   >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
+    <p>Delete {{ courseBuyInfo.value }}?</p>
   </CardBoxModal>
 
   <CardBoxModal
@@ -139,7 +180,7 @@ const submit = async () => {
     has-cancel
     @confirm="submit"
   >
-    <p>Thêm khóa học {{ courseBuyInfo.value }}</p>
+    <p>Add {{ courseBuyInfo.value }}</p>
   </CardBoxModal>
 
   <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
@@ -198,7 +239,7 @@ const submit = async () => {
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isModalDangerActive = true"
+              @click="deleteCourseModal(client.id, client.name)"
             />
             <BaseButton
               color="success"

@@ -10,6 +10,14 @@ class CourseService {
       headers: authHeader(),
     });
   }
+
+  async deleteCourse(id) {
+    return axios({
+      method: "delete",
+      url: BASE_API_URL + "/course/" + id,
+      headers: authHeader(),
+    });
+  }
 }
 
 export default new CourseService();
