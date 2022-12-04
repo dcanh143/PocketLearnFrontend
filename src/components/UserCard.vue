@@ -30,9 +30,11 @@ const userSwitchVal = ref(false);
           />
         </div>
         <h1 class="text-2xl">
-          Howdy, <b>{{ userName }}</b
-          >!
+          Howdy, <b>{{ userName }}</b> !
         </h1>
+        <p>
+          Type of user: <b>{{ mainStore.role }}</b>
+        </p>
         <div class="flex justify-center md:block">
           <PillTag label="Verified" color="info" :icon="mdiCheckDecagram" />
         </div>
