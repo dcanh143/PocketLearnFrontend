@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive, ref } from "vue";
 import { useMainStore } from "@/stores/main";
-import { mdiEye, mdiTrashCan } from "@mdi/js";
+import { mdiShopping, mdiEye, mdiTrashCan } from "@mdi/js";
 import CardBoxModal from "@/components/CardBoxModal.vue";
 import TableCheckboxCell from "@/components/TableCheckboxCell.vue";
 import BaseLevel from "@/components/BaseLevel.vue";
@@ -9,6 +9,9 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
 import courseService from "@/service/course.service";
+import axios from "axios";
+import { BASE_API_URL } from "@/common/constants";
+import { authHeader } from "@/service/base.service";
 
 defineProps({
   checkable: Boolean,
@@ -18,6 +21,12 @@ const courses = (await courseService.getAllCourse()).data;
 
 const courseContent = reactive({
   value: "",
+});
+
+const courseBuyInfo = reactive({
+  value: "",
+  id: "",
+  price: "",
 });
 
 const mainStore = useMainStore();
@@ -34,7 +43,12 @@ const currentPage = ref(0);
 
 const checkedRows = ref([]);
 
-const itemsPaginated = computed(() => items.value);
+const itemsPaginated = computed(() =>
+  items.value.slice(
+    perPage.value * currentPage.value,
+    perPage.value * (currentPage.value + 1)
+  )
+);
 
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
 
@@ -78,6 +92,29 @@ const watchCourse = (text) => {
 
   isModalActive.value = true;
 };
+
+const isModalBuyActive = ref(false);
+
+const buyCourse = (name, id, price) => {
+  courseBuyInfo.value = name;
+  courseBuyInfo.id = id;
+  courseBuyInfo.price = price;
+
+  isModalBuyActive.value = true;
+};
+
+const submit = async () => {
+  await axios({
+    method: "post",
+    url: BASE_API_URL + "/purchase",
+    data: {
+      userId: mainStore.id,
+      courseId: courseBuyInfo.id,
+      price: courseBuyInfo.price,
+    },
+    headers: authHeader(),
+  });
+};
 </script>
 
 <template>
@@ -93,6 +130,16 @@ const watchCourse = (text) => {
   >
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
+  </CardBoxModal>
+
+  <CardBoxModal
+    v-model="isModalBuyActive"
+    title="Please confirm"
+    button="success"
+    has-cancel
+    @confirm="submit"
+  >
+    <p>Thêm khóa học {{ courseBuyInfo.value }}</p>
   </CardBoxModal>
 
   <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
@@ -152,6 +199,12 @@ const watchCourse = (text) => {
               :icon="mdiTrashCan"
               small
               @click="isModalDangerActive = true"
+            />
+            <BaseButton
+              color="success"
+              :icon="mdiShopping"
+              small
+              @click="buyCourse(client.name, client.id, client.price)"
             />
           </BaseButtons>
         </td>

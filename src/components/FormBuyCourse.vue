@@ -20,7 +20,6 @@ import courseService from "@/service/course.service";
 import axios from "axios";
 import { authHeader } from "@/service/base.service";
 import { notify } from "@kyvg/vue3-notification";
-import { BASE_API_URL } from "@/common/constants";
 
 const selectOptions = [
   "ENGLISH",
@@ -43,7 +42,6 @@ const visibleCourseCreate = ref(false);
 const submit = async () => {
   await axios({
     method: "post",
-    url: BASE_API_URL + "/course",
     data: {
       name: form.name,
       description: form.description,
@@ -71,48 +69,29 @@ const submit = async () => {
 </script>
 
 <template>
-  <LayoutAuthenticated>
-    <SectionMain>
-      <BaseButton
-        class="my-3"
-        color="info"
-        label="Create Course"
-        @click="visibleCourseCreate = !visibleCourseCreate"
-      />
-      <CardBox form @submit="submit" v-if="visibleCourseCreate" class="mb-3">
-        <div class="grid grid-cols-2 gap-6 my-4">
-          <FormField label="Course Name">
-            <FormControl v-model="form.name" />
-          </FormField>
-          <FormField label="Price">
-            <FormControl v-model="form.price" />
-          </FormField>
-        </div>
+  <CardBox form @submit.prevent="submit" v-if="visibleCourseCreate">
+    <div class="grid grid-cols-2 gap-6 my-4">
+      <FormField label="Course Name">
+        <FormControl v-model="form.name" />
+      </FormField>
+      <FormField label="Price">
+        <FormControl v-model="form.price" />
+      </FormField>
+    </div>
 
-        <FormField label="Category">
-          <FormControl v-model="form.category" :options="selectOptions" />
-        </FormField>
+    <FormField label="Category">
+      <FormControl v-model="form.category" :options="selectOptions" />
+    </FormField>
 
-        <FormField label="Description">
-          <FormControl v-model="form.description" type="textarea" />
-        </FormField>
+    <FormField label="Description">
+      <FormControl v-model="form.description" type="textarea" />
+    </FormField>
 
-        <template #footer>
-          <BaseButtons>
-            <BaseButton
-              type="submit"
-              color="info"
-              label="Submit"
-              class="mx-3"
-              @click="submit"
-            />
-            <BaseButton type="reset" color="info" outline label="Reset" />
-          </BaseButtons>
-        </template>
-      </CardBox>
-      <CardBox class="mb-6" has-table>
-        <Suspense> <TableCoures checkable /> </Suspense>
-      </CardBox>
-    </SectionMain>
-  </LayoutAuthenticated>
+    <template #footer>
+      <BaseButtons>
+        <BaseButton type="submit" color="info" label="Submit" class="mx-3" />
+        <BaseButton type="reset" color="info" outline label="Reset" />
+      </BaseButtons>
+    </template>
+  </CardBox>
 </template>

@@ -8,6 +8,7 @@ export const useMainStore = defineStore("main", {
     username: localStorage.getItem("username"),
     jwt_token: localStorage.getItem("jwt_token"),
     role: localStorage.getItem("role"),
+    id: localStorage.getItem("id"),
 
     /* Field focus with ctrl+k (to register only once) */
     isFieldFocusRegistered: false,
@@ -22,6 +23,7 @@ export const useMainStore = defineStore("main", {
       localStorage.setItem("jwt_token", payload.token);
       localStorage.setItem("username", payload.username);
       localStorage.setItem("role", payload.role);
+      localStorage.setItem("id", payload.id);
     },
 
     fetch(sampleDataKey) {
