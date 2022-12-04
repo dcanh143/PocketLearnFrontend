@@ -1,14 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
+import Login from "@/views/LoginView.vue";
 
 const routes = [
   {
-    meta: {
-      title: "Login",
-    },
     path: "/",
     name: "login",
-    component: () => import("@/views/LoginView.vue"),
+    component: Login,
   },
   {
     // Document title tag
@@ -84,21 +82,10 @@ const routes = [
     name: "course",
     component: () => import("@/views/CourseView.vue"),
   },
+
   {
-    meta: {
-      title: "Create Course",
-    },
-    path: "/create-course",
-    name: "create-course",
-    component: () => import("@/views/CreateCourseView.vue"),
-  },
-  {
-    meta: {
-      title: "Error",
-    },
-    path: "/error",
-    name: "error",
-    component: () => import("@/views/ErrorView.vue"),
+    path: "/:catchAll(.*)",
+    redirect: "/login",
   },
 ];
 
