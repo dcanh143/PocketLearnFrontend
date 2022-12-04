@@ -1,21 +1,24 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Style from "@/views/StyleView.vue";
 import Home from "@/views/HomeView.vue";
+import { useMainStore } from "@/stores/main";
 
 const routes = [
   {
     meta: {
-      title: "Select style",
+      title: "Login",
+      requiredAuth: false,
     },
     path: "/",
-    name: "style",
-    component: Style,
+    name: "login",
+    component: () => import("@/views/LoginView.vue"),
   },
   {
     // Document title tag
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
       title: "Dashboard",
+      requiredAuth: true,
     },
     path: "/dashboard",
     name: "dashboard",
@@ -24,6 +27,7 @@ const routes = [
   {
     meta: {
       title: "Tables",
+      requiredAuth: true,
     },
     path: "/tables",
     name: "tables",
@@ -32,6 +36,7 @@ const routes = [
   {
     meta: {
       title: "Forms",
+      requiredAuth: true,
     },
     path: "/forms",
     name: "forms",
@@ -40,6 +45,7 @@ const routes = [
   {
     meta: {
       title: "Profile",
+      requiredAuth: true,
     },
     path: "/profile",
     name: "profile",
@@ -48,6 +54,7 @@ const routes = [
   {
     meta: {
       title: "Ui",
+      requiredAuth: true,
     },
     path: "/ui",
     name: "ui",
@@ -56,6 +63,7 @@ const routes = [
   {
     meta: {
       title: "Responsive layout",
+      requiredAuth: true,
     },
     path: "/responsive",
     name: "responsive",
@@ -64,6 +72,7 @@ const routes = [
   {
     meta: {
       title: "Login",
+      requiredAuth: false,
     },
     path: "/login",
     name: "login",
@@ -71,7 +80,17 @@ const routes = [
   },
   {
     meta: {
+      title: "Register",
+      requiredAuth: false,
+    },
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/LoginView.vue"),
+  },
+  {
+    meta: {
       title: "Error",
+      requiredAuth: false,
     },
     path: "/error",
     name: "error",

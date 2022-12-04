@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/admin-one-vue-tailwind/",
+  base: "/Pocket-Learn",
   plugins: [vue()],
   resolve: {
     alias: {

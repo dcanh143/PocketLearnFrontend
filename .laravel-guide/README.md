@@ -6,26 +6,26 @@ This guide will help you integrate your Laravel application with [Admin One - fr
 
 **Admin One** is simple, fast and free Vue.js 3.x Tailwind CSS 3.x admin dashboard with Laravel 9.x integration.
 
-* Built with **Vue.js 3**, **Tailwind CSS 3** framework & **Composition API**
-* **Laravel** build tools
-* **Laravel Breeze** with **Inertia + Vue** stack
-* **SFC** `<script setup>` [Info](https://v3.vuejs.org/api/sfc-script-setup.html)
-* **Pinia** state library (official Vuex 5)
-* **Dark mode**
-* **Styled** scrollbars
-* **Production CSS** is only **&thickapprox;38kb**
-* Reusable components
-* Free under MIT License
+- Built with **Vue.js 3**, **Tailwind CSS 3** framework & **Composition API**
+- **Laravel** build tools
+- **Laravel Breeze** with **Inertia + Vue** stack
+- **SFC** `<script setup>` [Info](https://v3.vuejs.org/api/sfc-script-setup.html)
+- **Pinia** state library (official Vuex 5)
+- **Dark mode**
+- **Styled** scrollbars
+- **Production CSS** is only **&thickapprox;38kb**
+- Reusable components
+- Free under MIT License
 
 ## Table of contents
 
-* [Install](#install)
-* [Copy styles, components and scripts](#copy-styles-components-and-scripts)
-* [Add pages](#add-pages)
-* [Fix router links](#fix-router-links)
-* [Add Inertia-related stuff](#add-inertia-related-stuff)
-* [Optional steps](#optional-steps)
-* [More information](#more-information)
+- [Install](#install)
+- [Copy styles, components and scripts](#copy-styles-components-and-scripts)
+- [Add pages](#add-pages)
+- [Fix router links](#fix-router-links)
+- [Add Inertia-related stuff](#add-inertia-related-stuff)
+- [Optional steps](#optional-steps)
+- [More information](#more-information)
 
 ## Install
 
@@ -60,19 +60,19 @@ Now clone [justboil/admin-one-vue-tailwind](https://github.com/justboil/admin-on
 
 Next, copy these files **from justboil/admin-one-vue-tailwind project** directory **to laravel project** directory:
 
-* Copy `tailwind.config.js` to `/`
-* Copy `src/components` `src/layouts` `src/stores` `src/colors.js` `src/config.js` `src/menuAside.js` `src/menuNavBar.js` `src/styles.js` to `resources/js/`
-* Copy `.laravel-guide/resources/js/` to `resources/js/`
-* Delete `resources/css/app.css`
-* Copy `src/css` to `resources/css`
+- Copy `tailwind.config.js` to `/`
+- Copy `src/components` `src/layouts` `src/stores` `src/colors.js` `src/config.js` `src/menuAside.js` `src/menuNavBar.js` `src/styles.js` to `resources/js/`
+- Copy `.laravel-guide/resources/js/` to `resources/js/`
+- Delete `resources/css/app.css`
+- Copy `src/css` to `resources/css`
 
 ### lowecase vs Capitalized folder names
 
 Fresh Laravel install with Breeze provides **Capitalized** folder names such as `Components`, `Layouts`, etc. For the sake of simplicity we just follow Vue conventions with lowercase folder names. However, you may opt-in to capitalize folder names:
 
-* Make sure you've removed original Laravel Breeze's `resources/js/Layouts` and `resources/js/Components` folders
-* Rename the folders you've copied in the previous section: `resources/js/layouts` to `Layouts`; `components` to `Components`; `stores` to `Stores`
-* Replace everywhere in imports: `@/layouts/` with `@/Layouts/`; `@/components/` with `@/Components/`; `@/stores/` with `@/Stores/`
+- Make sure you've removed original Laravel Breeze's `resources/js/Layouts` and `resources/js/Components` folders
+- Rename the folders you've copied in the previous section: `resources/js/layouts` to `Layouts`; `components` to `Components`; `stores` to `Stores`
+- Replace everywhere in imports: `@/layouts/` with `@/Layouts/`; `@/components/` with `@/Components/`; `@/stores/` with `@/Stores/`
 
 ### In tailwind.config.js
 
@@ -81,19 +81,19 @@ Replace `content`, to reflect Laravel's structure:
 ```js
 module.exports = {
   content: [
-    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-    './storage/framework/views/*.php',
-    './resources/views/**/*.blade.php',
-    './resources/js/**/*.vue',
-    './resources/js/**/*.js',
+    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+    "./storage/framework/views/*.php",
+    "./resources/views/**/*.blade.php",
+    "./resources/js/**/*.vue",
+    "./resources/js/**/*.js",
   ],
   // ...
-}
+};
 ```
 
 ### In resources/views/app.blade.php
 
-* Remove `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">`
+- Remove `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">`
 
 ## Add Pages
 
@@ -105,7 +105,7 @@ Then, open `resources/js/Pages/HomeView.vue` and add `<Head>`:
 
 ```vue
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head } from "@inertiajs/inertia-vue3";
 // ...
 </script>
 
@@ -137,25 +137,25 @@ Optionally, you can pass menu via Inertia shared props, so it's going to be cont
 
 ```javascript
 export default [
-  'General',
+  "General",
   [
     {
-      route: 'dashboard',
+      route: "dashboard",
       icon: mdiMonitor,
-      label: 'Dashboard'
+      label: "Dashboard",
     },
     {
-      route: 'dashboard2',
+      route: "dashboard2",
       icon: mdiMonitor,
-      label: 'Dashboard 2'
+      label: "Dashboard 2",
     },
     {
-      href: 'https://example.com/',
+      href: "https://example.com/",
       icon: mdiMonitor,
-      label: 'Example.com'
-    }
-  ]
-]
+      label: "Example.com",
+    },
+  ],
+];
 ```
 
 Route names reflect ones defined in `routes/web.php`:
@@ -178,18 +178,20 @@ Replace `RouterLink` imported from `vue-router` with `Link` import in `<script s
 
 ```vue
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from "@inertiajs/inertia-vue3";
 // ...
 
 // Add itemHref
-const itemHref = computed(() => props.item.route ? route(props.item.route) : props.item.href)
+const itemHref = computed(() =>
+  props.item.route ? route(props.item.route) : props.item.href
+);
 
 // Add activeInactiveStyle
-const activeInactiveStyle = computed(
-  () => props.item.route && route().current(props.item.route)
+const activeInactiveStyle = computed(() =>
+  props.item.route && route().current(props.item.route)
     ? styleStore.asideMenuItemActiveStyle
-    : ''
-)
+    : ""
+);
 
 // ...
 </script>
@@ -197,8 +199,8 @@ const activeInactiveStyle = computed(
 
 In `<template>` section:
 
-* In `<component>` remove `v-slot` and `:to` attributes; replace `:is` with `:is="item.route ? Link : 'a'"` and `:href` with `:href="itemHref"`
-* Inside `<component>` replace `:class` attribute for `<BaseIcon>`, `<span>` and another `<BaseIcon>` with `:class="activeInactiveStyle"`
+- In `<component>` remove `v-slot` and `:to` attributes; replace `:is` with `:is="item.route ? Link : 'a'"` and `:href` with `:href="itemHref"`
+- Inside `<component>` replace `:class` attribute for `<BaseIcon>`, `<span>` and another `<BaseIcon>` with `:class="activeInactiveStyle"`
 
 ### resources/js/components/BaseButton.vue
 
@@ -206,7 +208,7 @@ Replace `RouterLink` imported from `vue-router` with `Link` import in `<script s
 
 ```vue
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from "@inertiajs/inertia-vue3";
 // ...
 </script>
 ```
@@ -218,10 +220,10 @@ const props = defineProps({
   // ...
   routeName: {
     type: String,
-    default: null
-  }
+    default: null,
+  },
   // ...
-})
+});
 ```
 
 Fix `const is` declaration, so it returns the `Link` component when `props.routeName` is set:
@@ -229,19 +231,19 @@ Fix `const is` declaration, so it returns the `Link` component when `props.route
 ```javascript
 const is = computed(() => {
   if (props.as) {
-    return props.as
+    return props.as;
   }
 
   if (props.routeName) {
-    return Link
+    return Link;
   }
 
   if (props.href) {
-    return 'a'
+    return "a";
   }
 
-  return 'button'
-})
+  return "button";
+});
 ```
 
 Remove `:to` and replace `:href` in `<component>` with `:href="routeName ? route(routeName) : href"`:
@@ -267,24 +269,26 @@ Replace `RouterLink` imported from `vue-router` with `Link` import in `<script s
 
 ```vue
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from "@inertiajs/inertia-vue3";
 // ...
 
 // Add itemHref
-const itemHref = computed(() => props.item.route ? route(props.item.route) : props.item.href)
+const itemHref = computed(() =>
+  props.item.route ? route(props.item.route) : props.item.href
+);
 
 // Update `const is` to return `Link` when `props.routeName` is set:
 const is = computed(() => {
   if (props.item.href) {
-    return 'a'
+    return "a";
   }
 
   if (props.item.route) {
-    return Link
+    return Link;
   }
 
-  return 'div'
-})
+  return "div";
+});
 </script>
 ```
 
@@ -292,9 +296,7 @@ Then, remove `to` attribute and update `href` attributes in `<component>`:
 
 ```vue
 <template>
-  <component
-    :href="itemHref"
-  >
+  <component :href="itemHref">
     <slot />
   </component>
 </template>
@@ -308,18 +310,15 @@ Let's fetch user avatar initials based on username stored in database.
 
 ```vue
 <script setup>
-import { computed } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
-import UserAvatar from '@/components/UserAvatar.vue'
+import { computed } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
+import UserAvatar from "@/components/UserAvatar.vue";
 
-const userName = computed(() => usePage().props.value.auth.user.name)
+const userName = computed(() => usePage().props.value.auth.user.name);
 </script>
 
 <template>
-  <UserAvatar
-    :username="userName"
-    api="initials"
-  />
+  <UserAvatar :username="name" api="initials" />
 </template>
 ```
 
@@ -328,13 +327,17 @@ const userName = computed(() => usePage().props.value.auth.user.name)
 ```vue
 <script setup>
 // Add usePage:
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from "@inertiajs/inertia-vue3";
 // Remove unused useMainStore:
 // import { useMainStore } from '@/stores/main.js'
 // ...
 
 // Update itemLabel:
-const itemLabel = computed(() => props.item.isCurrentUser ? usePage().props.value.auth.user.name : props.item.label)
+const itemLabel = computed(() =>
+  props.item.isCurrentUser
+    ? usePage().props.value.auth.user.name
+    : props.item.label
+);
 
 // ...
 </script>
@@ -357,12 +360,12 @@ const itemLabel = computed(() => props.item.isCurrentUser ? usePage().props.valu
 
 // Add:
 
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from "@inertiajs/inertia";
 
-Inertia.on('navigate', () => {
-  isAsideMobileExpanded.value = false
-  isAsideLgActive.value = false
-})
+Inertia.on("navigate", () => {
+  isAsideMobileExpanded.value = false;
+  isAsideLgActive.value = false;
+});
 
 // Replace `isLogout` logic:
 
@@ -371,9 +374,9 @@ const menuClick = (event, item) => {
 
   if (item.isLogout) {
     // Add:
-    Inertia.post(route('logout'))
+    Inertia.post(route("logout"));
   }
-}
+};
 
 // ...
 </script>
@@ -400,5 +403,5 @@ Global `lodash` and `axios` aren't needed, as we import them directly when neede
 
 ## More information
 
-* [Laravel Docs](https://laravel.com/docs)
-* [Inertia](https://inertiajs.com/)
+- [Laravel Docs](https://laravel.com/docs)
+- [Inertia](https://inertiajs.com/)

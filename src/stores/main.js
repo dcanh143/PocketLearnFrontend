@@ -4,9 +4,6 @@ import axios from "axios";
 export const useMainStore = defineStore("main", {
   state: () => ({
     /* User */
-    userName: null,
-    userEmail: null,
-    userAvatar: null,
     name: localStorage.getItem("name"),
     username: localStorage.getItem("username"),
     jwt_token: localStorage.getItem("jwt_token"),
@@ -21,15 +18,6 @@ export const useMainStore = defineStore("main", {
   }),
   actions: {
     setUser(payload) {
-      if (payload.name) {
-        this.userName = payload.name;
-      }
-      if (payload.email) {
-        this.userEmail = payload.email;
-      }
-      if (payload.avatar) {
-        this.userAvatar = payload.avatar;
-      }
       localStorage.setItem("name", payload.name);
       localStorage.setItem("jwt_token", payload.token);
       localStorage.setItem("username", payload.username);

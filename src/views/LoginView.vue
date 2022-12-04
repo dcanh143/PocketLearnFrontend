@@ -21,6 +21,7 @@ const form = reactive({
 });
 
 const router = useRouter();
+const mainStore = useMainStore();
 
 const submit = async () => {
   await axios
@@ -34,7 +35,8 @@ const submit = async () => {
         title: "Thành công",
         text: "Đăng nhập thành công",
       });
-      useMainStore().setUser(res.data);
+      mainStore.setUser(res.data);
+      router.push("/dashboard");
     })
     .catch((err) => {
       notify({
