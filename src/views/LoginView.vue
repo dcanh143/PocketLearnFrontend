@@ -10,17 +10,39 @@ import FormControl from "@/components/FormControl.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseButtons from "@/components/BaseButtons.vue";
 import LayoutGuest from "@/layouts/LayoutGuest.vue";
+import { BASE_API_URL } from "@/common/constants";
+import { notify } from "@kyvg/vue3-notification";
+import { useMainStore } from "@/stores/main";
+import axios from "axios";
 
 const form = reactive({
-  login: "john.doe",
-  pass: "highly-secure-password-fYjUw-",
-  remember: true,
+  login: "",
+  pass: "",
 });
 
 const router = useRouter();
 
-const submit = () => {
-  router.push("/dashboard");
+const submit = async () => {
+  await axios
+    .post(BASE_API_URL + "/authentication/sign-in", {
+      username: form.login,
+      password: form.pass,
+    })
+    .then((res) => {
+      notify({
+        type: "success",
+        title: "Thành công",
+        text: "Đăng nhập thành công",
+      });
+      useMainStore().setUser(res.data);
+    })
+    .catch((err) => {
+      notify({
+        type: "error",
+        title: "Lỗi",
+        text: "Sai thông tin đăng nhập hoặc mật khẩu",
+      });
+    });
 };
 </script>
 
