@@ -19,6 +19,7 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import UserCard from "@/components/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+import TablePurchase from "@/components/TablePurchase.vue";
 
 const mainStore = useMainStore();
 
@@ -39,8 +40,9 @@ const submitPass = () => {
   <LayoutAuthenticated>
     <SectionMain>
       <UserCard class="mb-6" />
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+      <CardBox title="My Learning" class="mb-6" has-table>
+        <Suspense> <TablePurchase /> </Suspense>
+      </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
 </template>

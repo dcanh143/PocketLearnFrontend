@@ -4,6 +4,10 @@ import CardBoxComponentBody from "@/components/CardBoxComponentBody.vue";
 import CardBoxComponentFooter from "@/components/CardBoxComponentFooter.vue";
 
 const props = defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
   rounded: {
     type: String,
     default: "rounded-2xl",
@@ -51,6 +55,7 @@ const submit = (event) => {
     class="bg-white flex"
     @submit="submit"
   >
+    <p class="mx-3 my-3 font-bold">{{ props.title }}</p>
     <slot v-if="hasComponentLayout" />
     <template v-else>
       <CardBoxComponentBody :no-padding="hasTable">
