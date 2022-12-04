@@ -16,18 +16,19 @@ import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.
 import NotificationBarInCard from "@/components/NotificationBarInCard.vue";
 
 const selectOptions = [
-  { id: 1, label: "Business development" },
-  { id: 2, label: "Marketing" },
-  { id: 3, label: "Sales" },
+  "ENGLISH",
+  "SCIENCE",
+  "SOFTWARE",
+  "COMPUTER",
+  "INFORMATION",
+  "UIUX",
 ];
 
 const form = reactive({
   name: "",
-  email: "",
-  phone: "",
-  department: selectOptions[0],
-  subject: "",
-  question: "",
+  description: "",
+  price: "",
+  category: selectOptions[0],
 });
 
 const customElementsForm = reactive({
@@ -37,9 +38,7 @@ const customElementsForm = reactive({
   file: null,
 });
 
-const submit = () => {
-  //
-};
+const submit = () => {};
 
 const formStatusWithHeader = ref(true);
 
@@ -58,30 +57,21 @@ const formStatusSubmit = () => {
   <LayoutAuthenticated>
     <SectionMain>
       <CardBox form @submit.prevent="submit">
-        <FormField label="Grouped with icons">
-          <FormControl v-model="form.name" :icon="mdiAccount" />
-          <FormControl v-model="form.email" type="email" :icon="mdiMail" />
+        <div class="grid grid-cols-2 gap-6 my-4">
+          <FormField label="Course Name">
+            <FormControl v-model="form.name" />
+          </FormField>
+          <FormField label="Price">
+            <FormControl v-model="form.price" />
+          </FormField>
+        </div>
+
+        <FormField label="Category">
+          <FormControl v-model="form.category" :options="selectOptions" />
         </FormField>
 
-        <FormField label="With help line" help="Do not enter the leading zero">
-          <FormControl
-            v-model="form.phone"
-            type="tel"
-            placeholder="Your phone number"
-          />
-        </FormField>
-
-        <FormField label="Dropdown">
-          <FormControl v-model="form.department" :options="selectOptions" />
-        </FormField>
-
-        <BaseDivider />
-
-        <FormField label="Question" help="Your question. Max 255 characters">
-          <FormControl
-            type="textarea"
-            placeholder="Explain how we can help you"
-          />
+        <FormField label="Description">
+          <FormControl v-model="form.description" type="textarea" />
         </FormField>
 
         <template #footer>

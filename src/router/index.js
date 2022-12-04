@@ -7,7 +7,6 @@ const routes = [
   {
     meta: {
       title: "Login",
-      requiredAuth: false,
     },
     path: "/",
     name: "login",
@@ -18,7 +17,6 @@ const routes = [
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
       title: "Dashboard",
-      requiredAuth: true,
     },
     path: "/dashboard",
     name: "dashboard",
@@ -27,7 +25,6 @@ const routes = [
   {
     meta: {
       title: "Tables",
-      requiredAuth: true,
     },
     path: "/tables",
     name: "tables",
@@ -36,7 +33,6 @@ const routes = [
   {
     meta: {
       title: "Forms",
-      requiredAuth: true,
     },
     path: "/forms",
     name: "forms",
@@ -45,7 +41,6 @@ const routes = [
   {
     meta: {
       title: "Profile",
-      requiredAuth: true,
     },
     path: "/profile",
     name: "profile",
@@ -54,7 +49,6 @@ const routes = [
   {
     meta: {
       title: "Ui",
-      requiredAuth: true,
     },
     path: "/ui",
     name: "ui",
@@ -63,7 +57,6 @@ const routes = [
   {
     meta: {
       title: "Responsive layout",
-      requiredAuth: true,
     },
     path: "/responsive",
     name: "responsive",
@@ -72,7 +65,6 @@ const routes = [
   {
     meta: {
       title: "Login",
-      requiredAuth: false,
     },
     path: "/login",
     name: "login",
@@ -81,16 +73,30 @@ const routes = [
   {
     meta: {
       title: "Register",
-      requiredAuth: false,
     },
     path: "/register",
     name: "register",
-    component: () => import("@/views/LoginView.vue"),
+    component: () => import("@/views/RegisterView.vue"),
+  },
+  {
+    meta: {
+      title: "Course",
+    },
+    path: "/course",
+    name: "course",
+    component: () => import("@/views/CourseView.vue"),
+  },
+  {
+    meta: {
+      title: "Create Course",
+    },
+    path: "/create-course",
+    name: "create-course",
+    component: () => import("@/views/CreateCourseView.vue"),
   },
   {
     meta: {
       title: "Error",
-      requiredAuth: false,
     },
     path: "/error",
     name: "error",

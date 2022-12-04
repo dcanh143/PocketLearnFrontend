@@ -11,6 +11,7 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiReact,
+  mdiInformation,
 } from "@mdi/js";
 
 export default [
@@ -60,15 +61,8 @@ export default [
   //   icon: mdiAlertCircle,
   // },
   {
-    label: "Dropdown",
-    icon: mdiViewList,
-    menu: [
-      {
-        label: "Item One",
-      },
-      {
-        label: "Item Two",
-      },
-    ],
+    to: "/course",
+    label: "Course",
+    icon: mdiInformation,
   },
 ];

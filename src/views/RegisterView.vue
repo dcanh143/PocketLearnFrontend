@@ -15,9 +15,14 @@ import { notify } from "@kyvg/vue3-notification";
 import { useMainStore } from "@/stores/main";
 import axios from "axios";
 
+const roles = ["TEACHER", "STUDENT"];
+
 const form = reactive({
   login: "",
   pass: "",
+  pass_remind: "",
+  name: "",
+  role: roles[1],
 });
 
 const router = useRouter();
@@ -25,24 +30,26 @@ const mainStore = useMainStore();
 
 const submit = async () => {
   await axios
-    .post(BASE_API_URL + "/authentication/sign-in", {
+    .post(BASE_API_URL + "/authentication/sign-up", {
       username: form.login,
       password: form.pass,
+      name: form.name,
+      role: form.role,
     })
     .then((res) => {
       notify({
         type: "success",
         title: "Thành công",
-        text: "Đăng nhập thành công",
+        text: "Đăng ký thành công",
       });
       mainStore.setUser(res.data);
-      router.push("/dashboard");
+      router.push("/login");
     })
     .catch((err) => {
       notify({
         type: "error",
         title: "Lỗi",
-        text: "Sai thông tin đăng nhập hoặc mật khẩu",
+        text: "Thông tin không hợp lệ",
       });
     });
 };
@@ -52,21 +59,52 @@ const submit = async () => {
   <LayoutGuest>
     <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
-        <FormField label="Login" help="Please enter your login">
+        <FormField label="Name">
+          <FormControl
+            v-model="form.name"
+            :icon="mdiAccount"
+            name="login"
+            autocomplete="name"
+            placeholder="Enter your name"
+          />
+        </FormField>
+        <FormField label="Username">
           <FormControl
             v-model="form.login"
             :icon="mdiAccount"
             name="login"
             autocomplete="username"
+            placeholder="Enter your username"
           />
         </FormField>
 
-        <FormField label="Password" help="Please enter your password">
+        <FormField label="Password">
           <FormControl
             v-model="form.pass"
             :icon="mdiAsterisk"
             type="password"
             name="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          />
+        </FormField>
+
+        <FormField label="Password">
+          <FormControl
+            v-model="form.pass_remind"
+            :icon="mdiAsterisk"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          />
+        </FormField>
+
+        <FormField label="Role">
+          <FormControl
+            v-model="form.role"
+            :icon="mdiAsterisk"
+            :options="roles"
             autocomplete="current-password"
           />
         </FormField>
@@ -74,7 +112,12 @@ const submit = async () => {
         <template #footer>
           <BaseButtons>
             <BaseButton type="submit" color="info" label="Login" />
-            <BaseButton to="/register" color="info" outline label="Register" />
+            <BaseButton
+              to="/login"
+              color="info"
+              outline
+              label="Back to Login"
+            />
           </BaseButtons>
         </template>
       </CardBox>
