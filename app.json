@@ -1,0 +1,8 @@
+{
+  "name": "pocket-learn",
+  "build": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
