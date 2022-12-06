@@ -23,6 +23,7 @@ import CardBoxClient from "@/components/CardBoxClient.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import SectionBannerStarOnGitHub from "@/components/SectionBannerStarOnGitHub.vue";
+import purchaseService from "@/service/purchase.service";
 
 const chartData = ref(null);
 
@@ -45,14 +46,17 @@ const transactionBarItems = computed(() => mainStore.history);
   <LayoutAuthenticated>
     <SectionMain>
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
-        <CardBoxWidget
-          trend="12%"
-          trend-type="up"
-          color="text-emerald-500"
-          :icon="mdiAccountMultiple"
-          :number="512"
-          label="Clients"
-        />
+        <Suspense>
+          <CardBoxWidget
+            trend="12%"
+            trend-type="up"
+            color="text-emerald-500"
+            :icon="mdiAccountMultiple"
+            :number="512"
+            label="Number of learned course"
+          />
+        </Suspense>
+
         <CardBoxWidget
           trend="12%"
           trend-type="down"

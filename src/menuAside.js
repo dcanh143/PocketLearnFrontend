@@ -45,11 +45,11 @@ export default [
   //   label: "Styles",
   //   icon: mdiPalette,
   // },
-  {
-    to: "/profile",
-    label: "Profile",
-    icon: mdiAccountCircle,
-  },
+  // {
+  //   to: "/profile",
+  //   label: "Profile",
+  //   icon: mdiAccountCircle,
+  // },
   // {
   //   to: "/login",
   //   label: "Login",

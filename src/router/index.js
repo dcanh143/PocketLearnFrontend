@@ -16,7 +16,7 @@ const routes = [
     },
     path: "/dashboard",
     name: "dashboard",
-    component: Home,
+    component: () => import("@/views/ProfileView.vue"),
   },
   {
     meta: {
