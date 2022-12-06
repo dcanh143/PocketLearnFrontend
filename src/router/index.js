@@ -9,7 +9,7 @@ const routes = [
     },
     path: "/",
     name: "home",
-    component: Home,
+    component: () => import("@/views/ProfileView.vue"),
   },
   {
     // Document title tag
