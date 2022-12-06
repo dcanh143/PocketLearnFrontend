@@ -33,7 +33,8 @@ const menuClick = (event, item) => {
   }
 
   if (item.isLogout) {
-    //
+    localStorage.clear();
+    router.push("/login");
   }
 };
 </script>
